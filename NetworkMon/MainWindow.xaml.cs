@@ -72,8 +72,6 @@ namespace NetworkMon
         {
             try
             {
-                
-
                 string myHost = System.Net.Dns.GetHostName();
                 System.Net.IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(myHost);
                 IPAddress[] addr = ipEntry.AddressList;
@@ -83,40 +81,13 @@ namespace NetworkMon
                 if (addr.Length > 0)
                 {
                     start_r_packets += Convert.ToDecimal(ipstat.ReceivedPackets);
-                    //start_r_packets = Math.Round(start_r_packets / 1048576 * 100000) / 100000;
-
-                    string text = "";
-                    // text += "IP Address: " + addr[addr.Length - 1].ToString() + Environment.NewLine;
-
                     NetworkInterface adapter = fNetworkInterfaces[2];
 
                     long received = adapter.GetIPv4Statistics().BytesReceived;
                     start_received_bytes += received;
 
                     start_sent_bytes = adapter.GetIPv4Statistics().BytesSent;
-
-                    // string tt = $"{Speed(received)} KB/s";
-
-                    // text += adapter.Name + Environment.NewLine;
-                    //text += Environment.NewLine + "Description: " + adapter.Description + Environment.NewLine;
-                    //text += Environment.NewLine + "Network Type: " + adapter.NetworkInterfaceType + Environment.NewLine;
-                    // text += Environment.NewLine + "Speed: " + adapter.Speed / 1000000 + " (Mbps)" + Environment.NewLine;
-                    // text += Environment.NewLine + "Operational Status: " + adapter.OperationalStatus + Environment.NewLine;
-
-                    // text += Environment.NewLine + "Reeived: " + start_received_bytes.ToString() + Environment.NewLine;
-                    //text += Environment.NewLine + "Sent: " + start_sent_bytes.ToString() + Environment.NewLine;
-
-                    // start_received_bytes = (start_received_bytes / 1048576 * 100000) / 100000;
                     start_sent_bytes = (start_sent_bytes / 1048576 * 100000) / 100000;
-
-                    //text += Environment.NewLine + "Reeived (in MB): " + start_received_bytes.ToString() + Environment.NewLine;
-                    //text += Environment.NewLine + "Sent (in MB): " + start_sent_bytes.ToString() + Environment.NewLine;
-
-                    // text += Environment.NewLine + "Is Network Available: " + _isNetworkOnline.ToString() + Environment.NewLine;
-                    //text += Environment.NewLine + "Starting Received Packets: " + start_r_packets.ToString() + Environment.NewLine;
-                    //text += Environment.NewLine + "Is Network up: " + System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable().ToString() + Environment.NewLine;
-                    // text` += Environment.NewLine + "New method output: " + IsConnectedToInternet().ToString();
-                    //text += $"{tt}";
 
                     int speed = Speed(received);
                     Console.WriteLine(speed);
