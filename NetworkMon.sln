@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkMon", "NetworkMon\NetworkMon.csproj", "{C6B3FBFD-5BA8-4A24-9D47-CA98145D3848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonWinService", "NetworkMonWinService\NetworkMonWinService.csproj", "{1E2EF695-9FAB-4302-A8B3-4DAFEADE4240}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6B3FBFD-5BA8-4A24-9D47-CA98145D3848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B3FBFD-5BA8-4A24-9D47-CA98145D3848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B3FBFD-5BA8-4A24-9D47-CA98145D3848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B3FBFD-5BA8-4A24-9D47-CA98145D3848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E2EF695-9FAB-4302-A8B3-4DAFEADE4240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2EF695-9FAB-4302-A8B3-4DAFEADE4240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2EF695-9FAB-4302-A8B3-4DAFEADE4240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E2EF695-9FAB-4302-A8B3-4DAFEADE4240}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {233C1CCC-17D5-4897-9F1A-624BE1F3D79A}
+	EndGlobalSection
+EndGlobal
