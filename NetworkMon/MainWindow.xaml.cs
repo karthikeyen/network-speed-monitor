@@ -48,11 +48,9 @@ namespace NetworkMon
             this._timer.Elapsed += _timer_Elapsed;
             this._timer.Start();
 
-            // Debugger.Launch();
-            // Check if the event source exists. If not create it.
-            if (!System.Diagnostics.EventLog.SourceExists("NetMonSource"))
+            if (!EventLog.SourceExists("NetMonSource"))
             {
-                System.Diagnostics.EventLog.CreateEventSource("NetMonSource", "Application");
+                EventLog.CreateEventSource("NetMonSource", "Application");
             }
 
             eventLog.Source = "NetMonSource";
@@ -90,8 +88,6 @@ namespace NetworkMon
                     start_sent_bytes = (start_sent_bytes / 1048576 * 100000) / 100000;
 
                     int speed = Speed(received);
-                    Console.WriteLine(speed);
-                    Trace.WriteLine(speed);
 
                     prevValue = received;
                     prevTime = DateTime.Now;
@@ -110,8 +106,7 @@ namespace NetworkMon
 
                     this.Dispatcher.Invoke(() =>
                     {
-                        // eventLog.WriteEntry("getConnectionInfo() :: "+ quicktext, EventLogEntryType.Information);
-                        this.lbl.Text = quicktext;
+                        this.lbl.Text = speed == 0 ? "" : quicktext;
                     });
                 }
             }

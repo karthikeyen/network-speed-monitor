@@ -43,26 +43,7 @@ namespace NetworkMonWinService
                     if (File.Exists(path))
                     {
                         EventLog.WriteEntry("NetworkMon.exe exists", EventLogEntryType.Information);
-                        // Process.Start(path);
-
-                        Process process = new Process()
-                        {
-                            
-                        };
-
                         ProcessExtensions.StartProcessAsCurrentUser(path);
-
-                        var StartInfo = new ProcessStartInfo(path)
-                        {
-                            WindowStyle = ProcessWindowStyle.Normal,
-                            WorkingDirectory = Path.GetDirectoryName(path),
-                            UseShellExecute = true,
-                            Verb = "runas",
-                        };
-                        StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                        process.StartInfo = StartInfo;
-
-                        // process.Start();
                         EventLog.WriteEntry("NetworkMon.exe started", EventLogEntryType.Information);
                     }
                     else

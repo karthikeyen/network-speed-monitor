@@ -17,8 +17,15 @@ namespace NetworkMon
             m_notifyIcon.Visible = true;
             m_notifyIcon.Icon = icon;
             m_DefaultIcon = icon;
-            m_notifyIcon.DoubleClick += M_notifyIcon_DoubleClick;
-            // m_notifyIcon.ContextMenu = menu;
+            // m_notifyIcon.DoubleClick += M_notifyIcon_DoubleClick;
+            m_notifyIcon.ContextMenuStrip = new ContextMenuStrip();
+
+            ToolStripButton bt = new ToolStripButton();
+            bt.Click += Bt_Click;
+            bt.Name = "View";
+            bt.Text = "View";
+            m_notifyIcon.ContextMenuStrip.Items.Add(bt);
+            
             m_font = new Font("segoe ui", 6);
 
             m_timer = new Timer();
@@ -26,9 +33,10 @@ namespace NetworkMon
             m_timer.Tick += new System.EventHandler(this.m_timer_Tick);
         }
 
-        private void M_notifyIcon_DoubleClick(object sender, EventArgs e)
+        private void Bt_Click(object sender, EventArgs e)
         {
-            
+            Settings settings = new Settings();
+            settings.Show();
         }
 
         public void ShowText(string text)
