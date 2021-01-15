@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Timers;
@@ -16,20 +15,12 @@ namespace NetworkMon
     public partial class MainWindow : Window
     {
         private Timer _timer = new Timer();
-
-        private SysTray sysTray = new SysTray("", new Icon(SystemIcons.Exclamation, 40, 40));
-
-        private static bool _isNetworkOnline;
+        private SysTray sysTray = new SysTray("");
+        
         static IPGlobalProperties properties = IPGlobalProperties.GetIPGlobalProperties();
         static IPGlobalStatistics ipstat = properties.GetIPv4GlobalStatistics();
 
-        static Decimal start_r_packets;
-        static Decimal end_r_packets;
         static NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-        static long start_received_bytes;
-        static long start_sent_bytes;
-        static long end_received_bytes;
-        static long end_sent_bytes;
 
         EventLog eventLog = new EventLog();
 
@@ -39,8 +30,8 @@ namespace NetworkMon
             InitializeComponent();
 
             this.Initialized += MainWindow_Initialized;
-
-            // eventLog.WriteEntry("Process started", EventLogEntryType.Information);
+            this.Loaded += MainWindow_Loaded;
+            this.Closed += MainWindow_Closed;
 
             this.Left = System.Windows.SystemParameters.PrimaryScreenWidth - 200;
             this.Top = System.Windows.SystemParameters.PrimaryScreenHeight - 100;
@@ -56,14 +47,32 @@ namespace NetworkMon
             eventLog.Source = "NetMonSource";
         }
 
-        private void MainWindow_Initialized(object sender, EventArgs e)
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            this._timer.Stop();
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             eventLog.WriteEntry("Process started", EventLogEntryType.Information);
+            this.sysTray.SetDefaultIcons();
+        }
+
+        private void MainWindow_Initialized(object sender, EventArgs e)
+        {
+            
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            getConnectionInfo();
+            if (this.sysTray.IsRunning)
+            {
+                getConnectionInfo();
+            }
+            else
+            {
+                this._timer.Stop();
+            }
         }
 
         private void getConnectionInfo()
@@ -78,14 +87,8 @@ namespace NetworkMon
 
                 if (addr.Length > 0)
                 {
-                    start_r_packets += Convert.ToDecimal(ipstat.ReceivedPackets);
                     NetworkInterface adapter = fNetworkInterfaces[2];
-
                     long received = adapter.GetIPv4Statistics().BytesReceived;
-                    start_received_bytes += received;
-
-                    start_sent_bytes = adapter.GetIPv4Statistics().BytesSent;
-                    start_sent_bytes = (start_sent_bytes / 1048576 * 100000) / 100000;
 
                     int speed = Speed(received);
 
@@ -93,15 +96,20 @@ namespace NetworkMon
                     prevTime = DateTime.Now;
 
                     string quicktext = "";
-                    if (speed < 1024)
+                    if (speed == 0)
+                    {
+                        quicktext = $"--";
+                        this.sysTray.ClearTrayIcon();
+                    }
+                    else if (speed > 0 && speed < 1024)
                     {
                         quicktext = $"{speed} KB/s";
-                        this.sysTray.RenderMultiLineText(speed.ToString(), "KB", Color.White);
+                        this.sysTray.ShowTrayDonwloadIcon();
                     }
                     else if (speed > 1024)
                     {
                         quicktext = $"{speed / 1024} MB/s";
-                        this.sysTray.RenderMultiLineText($"{speed / 1024}", "MB", Color.White);
+                        this.sysTray.ShowTrayDonwloadIcon();
                     }
 
                     this.Dispatcher.Invoke(() =>
@@ -118,7 +126,6 @@ namespace NetworkMon
         }
 
         static long prevValue;
-        static DateTime prevTime;
         static int Speed(long received)
         {
             long recievedBytes = received - prevValue;

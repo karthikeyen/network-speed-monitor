@@ -8,4 +8,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>C:\Services\</OutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\download.ico" />
+    <None Remove="Assets\hyphen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\download.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\hyphen.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
