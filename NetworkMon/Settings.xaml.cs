@@ -20,6 +20,34 @@ namespace NetworkMon
         public Settings()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            this.Left = SystemParameters.PrimaryScreenWidth - 250;
+            this.Top = SystemParameters.PrimaryScreenHeight - 425;
+
+            var Theme = ThemeHelper.GetTheme();
+            if (Theme == THEME.DARK)
+            {
+                this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
+            }
+            else
+            {
+                this.Background = new SolidColorBrush(Colors.White);
+            }
+        }
+
+        protected override void OnDeactivated(EventArgs e)
+        {
+            base.OnDeactivated(e);
+            if (this.IsVisible)
+            {
+                this.Close();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
