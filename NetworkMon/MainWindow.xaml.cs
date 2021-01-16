@@ -1,11 +1,10 @@
-﻿// https://github.com/murrayju/CreateProcessAsUser
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Timers;
 using System.Windows;
+using System.Windows.Media;
 
 namespace NetworkMon
 {
@@ -15,26 +14,20 @@ namespace NetworkMon
     public partial class MainWindow : Window
     {
         private Timer _timer = new Timer();
-        private SysTray sysTray = new SysTray("");
-        
-        static IPGlobalProperties properties = IPGlobalProperties.GetIPGlobalProperties();
-        static IPGlobalStatistics ipstat = properties.GetIPv4GlobalStatistics();
-
+        private SysTray sysTray = new SysTray();
+        private THEME Theme;
+        private EventLog eventLog = new EventLog();
         static NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
-        EventLog eventLog = new EventLog();
-
-        // https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
         public MainWindow()
         {
             InitializeComponent();
 
-            this.Initialized += MainWindow_Initialized;
             this.Loaded += MainWindow_Loaded;
             this.Closed += MainWindow_Closed;
 
-            this.Left = System.Windows.SystemParameters.PrimaryScreenWidth - 200;
-            this.Top = System.Windows.SystemParameters.PrimaryScreenHeight - 100;
+            this.Left = SystemParameters.PrimaryScreenWidth - 200;
+            this.Top = SystemParameters.PrimaryScreenHeight - 100;
 
             this._timer.Elapsed += _timer_Elapsed;
             this._timer.Start();
@@ -45,6 +38,20 @@ namespace NetworkMon
             }
 
             eventLog.Source = "NetMonSource";
+            SetColors();
+        }
+
+        private void SetColors()
+        {
+            Theme = ThemeHelper.GetTheme();
+            if (Theme == THEME.DARK)
+            {
+                this.lbl.Foreground = new System.Windows.Media.SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                this.lbl.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
+            }
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
@@ -56,11 +63,6 @@ namespace NetworkMon
         {
             eventLog.WriteEntry("Process started", EventLogEntryType.Information);
             this.sysTray.SetDefaultIcons();
-        }
-
-        private void MainWindow_Initialized(object sender, EventArgs e)
-        {
-            
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -91,9 +93,9 @@ namespace NetworkMon
                     long received = adapter.GetIPv4Statistics().BytesReceived;
 
                     int speed = Speed(received);
+                    Debug.WriteLine(speed);
 
                     prevValue = received;
-                    prevTime = DateTime.Now;
 
                     string quicktext = "";
                     if (speed == 0)
@@ -114,7 +116,8 @@ namespace NetworkMon
 
                     this.Dispatcher.Invoke(() =>
                     {
-                        this.lbl.Text = speed == 0 ? "" : quicktext;
+                        // App.Current.FindResource
+                        this.lbl.Text = speed == 0 ? "--" : quicktext;
                     });
                 }
             }

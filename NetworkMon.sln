@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkMon", "NetworkMon\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonWinService", "NetworkMonWinService\NetworkMonWinService.csproj", "{1E2EF695-9FAB-4302-A8B3-4DAFEADE4240}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{53F0D9C2-92EE-4592-BD90-AC8C7B20EDE7}"
+	ProjectSection(SolutionItems) = preProject
+		References.txt = References.txt
+		Sniffer.txt = Sniffer.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

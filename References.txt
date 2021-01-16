@@ -1,0 +1,3 @@
+// https://github.com/murrayju/CreateProcessAsUser
+// https://stackoverflow.com/questions/62282360/is-it-possible-to-detect-windows-dark-mode-on-winforms-application
+// https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
