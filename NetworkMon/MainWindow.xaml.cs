@@ -1,12 +1,11 @@
 ﻿using NetworkMon.Helpers;
 using NetworkMon.UI;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Net.NetworkInformation;
 using System.Timers;
 using System.Windows;
-using System.Windows.Media;
 
 namespace NetworkMon
 {
@@ -16,7 +15,6 @@ namespace NetworkMon
         private Timer _timer = new Timer();
         private THEME Theme;
         private EventLog eventLog = new EventLog();
-        static NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
         public MainWindow()
         {
@@ -67,9 +65,31 @@ namespace NetworkMon
             StartupHelper.SetRunAtStartupEnabled(true);
         }
 
+        NetworkInterface GetConnectedNetworkInterface()
+        {
+            List<NetworkInterface> Interfaces = new List<NetworkInterface>();
+            var all = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var ni in all)
+            {
+                if (ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Tunnel && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                {
+                    Interfaces.Add(ni);
+                }
+            }
+
+            if (Interfaces.Count > 0)
+            {
+                return Interfaces[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (this.IsRunning)
+            if (this.IsRunning && NetworkInterface.GetIsNetworkAvailable())
             {
                 getConnectionInfo();
             }
@@ -83,45 +103,40 @@ namespace NetworkMon
         {
             try
             {
-                string myHost = System.Net.Dns.GetHostName();
-                System.Net.IPHostEntry ipEntry = System.Net.Dns.GetHostEntry(myHost);
-                IPAddress[] addr = ipEntry.AddressList;
-                // NetworkChange.NetworkAvailabilityChanged += new NetworkAvailabilityChangedEventHandler(NetworkChange_NetworkAvailabilityChanged);
-                var _isNetworkOnline = NetworkInterface.GetIsNetworkAvailable();
+                NetworkInterface adapter = GetConnectedNetworkInterface();
+                if (adapter == null) return;
 
-                if (addr.Length > 0)
+                long received = adapter.GetIPv4Statistics().BytesReceived;
+                // eventLog.WriteEntry("received : " + received, EventLogEntryType.Information);
+
+                int speed = Speed(received);
+                Debug.WriteLine(speed);
+
+                prevValue = received;
+
+                string quicktext = "";
+                if (speed == 0)
                 {
-                    NetworkInterface adapter = fNetworkInterfaces[2];
-                    long received = adapter.GetIPv4Statistics().BytesReceived;
-
-                    int speed = Speed(received);
-                    Debug.WriteLine(speed);
-
-                    prevValue = received;
-
-                    string quicktext = "";
-                    if (speed == 0)
-                    {
-                        quicktext = $"--";
-                        // this.sysTray.ClearTrayIcon();
-                    }
-                    else if (speed > 0 && speed < 1024)
-                    {
-                        quicktext = $"{speed} KB/s";
-                        // this.sysTray.ShowTrayDonwloadIcon();
-                    }
-                    else if (speed > 1024)
-                    {
-                        quicktext = $"{speed / 1024} MB/s";
-                        // this.sysTray.ShowTrayDonwloadIcon();
-                    }
-
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        // App.Current.FindResource
-                        this.lbl.Text = speed == 0 ? "--" : quicktext;
-                    });
+                    quicktext = $"--";
+                    // this.sysTray.ClearTrayIcon();
                 }
+                else if (speed > 0 && speed < 1024)
+                {
+                    quicktext = $"{speed} KB/s";
+                    // this.sysTray.ShowTrayDonwloadIcon();
+                }
+                else if (speed > 1024)
+                {
+                    quicktext = $"{speed / 1024} MB/s";
+                    // this.sysTray.ShowTrayDonwloadIcon();
+                }
+
+                // eventLog.WriteEntry("quicktext : " + quicktext, EventLogEntryType.Information);
+
+                this.Dispatcher.Invoke(() =>
+                {
+                        this.lbl.Text = speed == 0 ? "--" : quicktext;
+                });
             }
             catch (Exception ex)
             {

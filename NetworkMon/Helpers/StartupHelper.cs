@@ -48,9 +48,10 @@ namespace NetworkMon.Helpers
         {
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
                     ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            var exe = Application.StartupPath + "NetworkMon.exe";
             if (isChecked)
             {
-                registryKey.SetValue("Network Status Monitor", Application.ExecutablePath);
+                registryKey.SetValue("Network Status Monitor", exe);
             }
             else
             {
