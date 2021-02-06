@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Assets\download.ico" />
     <None Remove="Assets\hyphen.ico" />
+    <None Remove="Assets\Images\download.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\download.ico">
@@ -21,5 +22,12 @@
     <EmbeddedResource Include="Assets\hyphen.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ModernWpf.Toolkit.UI.Controls" Version="0.1.0" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\download.png" />
   </ItemGroup>
 </Project>
