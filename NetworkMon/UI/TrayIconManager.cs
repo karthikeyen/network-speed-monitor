@@ -46,13 +46,29 @@ namespace NetworkMon.UI
             {
                 Header = "Restart",
                 ToolTip = "Restart application",
-                Icon = new FontIcon() { Glyph = CommonGlyphs.PowerButton },
+                Icon = new FontIcon() { Glyph = CommonGlyphs.Pause },
+                Command = CommonCommands.RestartAppCommand
+            };
+
+            var pauseItem = new MenuItem()
+            {
+                Header = "Pause",
+                ToolTip = "Pause application",
+                Icon = new FontIcon() { Glyph = CommonGlyphs.Pause },
+                Command = CommonCommands.RestartAppCommand
+            };
+
+            var resumeItem = new MenuItem()
+            {
+                Header = "Resume",
+                ToolTip = "Resume application",
+                Icon = new FontIcon() { Glyph = CommonGlyphs.RepeatOne },
                 Command = CommonCommands.RestartAppCommand
             };
 
             TaskbarIconContextMenu = new ContextMenu()
             {
-                Items = { settingsItem, exitItem, restartItem }
+                Items = { settingsItem, exitItem, restartItem, pauseItem, resumeItem }
             };
 
             TaskbarIconToolTip = new ToolTip() { Content = "Network Status Monitor" };
