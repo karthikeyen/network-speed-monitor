@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonWinService", "Net
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{53F0D9C2-92EE-4592-BD90-AC8C7B20EDE7}"
 	ProjectSection(SolutionItems) = preProject
+		Images.txt = Images.txt
 		References.txt = References.txt
 		Sniffer.txt = Sniffer.txt
 	EndProjectSection
