@@ -25,6 +25,7 @@ namespace NetworkMon
 
             _pages.Add("about", typeof(About));
             _pages.Add("personalization", typeof(PersonalizationPage));
+            _pages.Add("general", typeof(GeneralPage));
         }
 
         protected override void OnDeactivated(EventArgs e)

@@ -24,7 +24,7 @@
                         <ui:FontIcon Glyph="{x:Static utils:CommonGlyphs.Personalization}" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-            </ui:NavigationView.MenuItems>
+        </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem Content="About" Tag="about">
                     <ui:NavigationViewItem.Icon>
