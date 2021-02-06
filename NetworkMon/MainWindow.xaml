@@ -12,6 +12,8 @@
         AllowsTransparency="True"  Background="Transparent"
         Title="MainWindow" Height="50" Width="170">
     <Grid>
-        <TextBlock x:Name="lbl" FontSize="40px" TextAlignment="Center" Foreground="White" Opacity="0.5">000 KB/s</TextBlock>
+        <TextBlock x:Name="lbl" 
+                   Style="{DynamicResource BaseTextBlockStyle}"
+                   FontSize="40px" TextAlignment="Center" Foreground="White" Opacity="0.5">000 KB/s</TextBlock>
     </Grid>
 </Window>

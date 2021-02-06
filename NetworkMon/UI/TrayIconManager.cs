@@ -77,7 +77,7 @@ namespace NetworkMon.UI
             {
                 TrayToolTip = TaskbarIconToolTip,
                 ContextMenu = TaskbarIconContextMenu,
-                DoubleClickCommand = CommonCommands.OpenSettingsWindowCommand,
+                DoubleClickCommand = CommonCommands.SettingAppCommand,
                 Icon = GetImageByName("NetworkMon.Assets.tray_icon.ico")
             };
         }

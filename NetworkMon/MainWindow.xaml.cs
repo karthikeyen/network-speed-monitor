@@ -46,11 +46,11 @@ namespace NetworkMon
             Theme = ThemeHelper.GetTheme();
             if (Theme == THEME.DARK)
             {
-                this.lbl.Foreground = new System.Windows.Media.SolidColorBrush(Colors.White);
+                // this.lbl.Foreground = new System.Windows.Media.SolidColorBrush(Colors.White);
             }
             else
             {
-                this.lbl.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
+                // this.lbl.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
             }
         }
 
