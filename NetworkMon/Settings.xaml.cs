@@ -9,7 +9,7 @@ namespace NetworkMon
 {
     public partial class Settings : Window
     {
-        public Settings()
+        private Settings()
         {
             InitializeComponent();
 
@@ -28,6 +28,20 @@ namespace NetworkMon
             _pages.Add("general", typeof(GeneralPage));
         }
 
+        private static Settings _instance;
+        public static Settings Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new Settings();
+                }
+
+                return _instance;
+            }
+        }
+
         protected override void OnDeactivated(EventArgs e)
         {
             base.OnDeactivated(e);
@@ -35,6 +49,7 @@ namespace NetworkMon
             {
                 this.Close();
             }
+            _instance = null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -68,6 +83,6 @@ namespace NetworkMon
 
         }
 
-        private static readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
+        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
     }
 }

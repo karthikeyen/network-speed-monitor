@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetworkMon.UI;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,38 +13,39 @@ namespace NetworkMon
 
         public SysTray()
         {
-            m_notifyIcon = new NotifyIcon();
-            m_notifyIcon.ContextMenuStrip = new ContextMenuStrip();
+            TrayIconManager.SetupTrayIcon();
+            //m_notifyIcon = new NotifyIcon();
+            //m_notifyIcon.ContextMenuStrip = new ContextMenuStrip();
 
-            ToolStripButton bt = new ToolStripButton();
-            bt.Click += Bt_Click;
-            bt.Name = "View";
-            bt.Text = "View";
-            m_notifyIcon.ContextMenuStrip.Items.Add(bt);
+            //ToolStripButton bt = new ToolStripButton();
+            //bt.Click += Bt_Click;
+            //bt.Name = "View";
+            //bt.Text = "View";
+            //m_notifyIcon.ContextMenuStrip.Items.Add(bt);
 
-            ToolStripButton btRestart = new ToolStripButton();
-            btRestart.Click += BtRestart_Click;
-            btRestart.Name = "Restart";
-            btRestart.Text = "Restart";
-            m_notifyIcon.ContextMenuStrip.Items.Add(btRestart);
+            //ToolStripButton btRestart = new ToolStripButton();
+            //btRestart.Click += BtRestart_Click;
+            //btRestart.Name = "Restart";
+            //btRestart.Text = "Restart";
+            //m_notifyIcon.ContextMenuStrip.Items.Add(btRestart);
 
-            ToolStripButton btPause = new ToolStripButton();
-            btPause.Click += Bt_Click;
-            btPause.Name = "Pause";
-            btPause.Text = "Pause";
-            m_notifyIcon.ContextMenuStrip.Items.Add(btPause);
+            //ToolStripButton btPause = new ToolStripButton();
+            //btPause.Click += Bt_Click;
+            //btPause.Name = "Pause";
+            //btPause.Text = "Pause";
+            //m_notifyIcon.ContextMenuStrip.Items.Add(btPause);
 
-            ToolStripButton btResume = new ToolStripButton();
-            btResume.Click += BtRestart_Click;
-            btResume.Name = "Resume";
-            btResume.Text = "Resume";
-            m_notifyIcon.ContextMenuStrip.Items.Add(btResume);
+            //ToolStripButton btResume = new ToolStripButton();
+            //btResume.Click += BtRestart_Click;
+            //btResume.Name = "Resume";
+            //btResume.Text = "Resume";
+            //m_notifyIcon.ContextMenuStrip.Items.Add(btResume);
 
-            ToolStripButton btExit = new ToolStripButton();
-            btExit.Click += BtRestart_Click;
-            btExit.Name = "Exit";
-            btExit.Text = "Exit";
-            m_notifyIcon.ContextMenuStrip.Items.Add(btExit);
+            //ToolStripButton btExit = new ToolStripButton();
+            //btExit.Click += BtRestart_Click;
+            //btExit.Name = "Exit";
+            //btExit.Text = "Exit";
+            //m_notifyIcon.ContextMenuStrip.Items.Add(btExit);
 
             DownloadIcon = GetImageByName("NetworkMon.Assets.download.ico");
             NeutralIcon = GetImageByName("NetworkMon.Assets.hyphen.ico");
@@ -51,9 +53,9 @@ namespace NetworkMon
 
         public void SetDefaultIcons()
         {
-            m_notifyIcon.Visible = true;
-            m_notifyIcon.Icon = DownloadIcon;
-            m_DefaultIcon = DownloadIcon;
+            //m_notifyIcon.Visible = true;
+            //m_notifyIcon.Icon = DownloadIcon;
+            //m_DefaultIcon = DownloadIcon;
         }
 
         private void BtRestart_Click(object sender, EventArgs e)
@@ -64,8 +66,8 @@ namespace NetworkMon
 
         private void Bt_Click(object sender, EventArgs e)
         {
-            Settings settings = new Settings();
-            settings.Show();
+            //Settings settings = new Settings();
+            //settings.Show();
         }
 
         public static Icon GetImageByName(string imageName)
@@ -81,20 +83,20 @@ namespace NetworkMon
 
         public void ShowTrayDonwloadIcon()
         {
-            if (m_notifyIcon.Icon == null || m_notifyIcon.Icon == NeutralIcon)
-            {
-                m_notifyIcon.Icon = DownloadIcon;
-            }
+            //if (m_notifyIcon.Icon == null || m_notifyIcon.Icon == NeutralIcon)
+            //{
+            //    m_notifyIcon.Icon = DownloadIcon;
+            //}
         }
 
         public void ClearTrayIcon()
         {
-            m_notifyIcon.Icon = NeutralIcon;
+            // m_notifyIcon.Icon = NeutralIcon;
         }
 
         public void Dispose()
         {
-            m_notifyIcon.Dispose();
+           // m_notifyIcon.Dispose();
         }
 
         private NotifyIcon m_notifyIcon;
