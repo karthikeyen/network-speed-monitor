@@ -1,14 +1,10 @@
-﻿using System;
+﻿using ModernWpf.Media.Animation;
+using NetworkMon.Pages;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NetworkMon
 {
@@ -20,12 +16,8 @@ namespace NetworkMon
         public Settings()
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.Manual;
 
-            this.Left = SystemParameters.PrimaryScreenWidth - 250;
-            this.Top = SystemParameters.PrimaryScreenHeight - 425;
-
-            var Theme = ThemeHelper.GetTheme();
+            /* var Theme = ThemeHelper.GetTheme();
             if (Theme == THEME.DARK)
             {
                 this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
@@ -33,7 +25,10 @@ namespace NetworkMon
             else
             {
                 this.Background = new SolidColorBrush(Colors.White);
-            }
+            } */
+
+            _pages.Add("about", typeof(About));
+            _pages.Add("personalization", typeof(PersonalizationPage));
         }
 
         protected override void OnDeactivated(EventArgs e)
@@ -49,5 +44,33 @@ namespace NetworkMon
         {
             this.Close();
         }
+
+        private void NavView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+
+            if (args.SelectedItem != null)
+            {
+                var navItemTag = args.SelectedItemContainer.Tag.ToString();
+                DoNavigate(navItemTag, args.RecommendedNavigationTransitionInfo);
+            }
+        }
+
+        private void DoNavigate(string navItemTag, NavigationTransitionInfo info)
+        {
+            var item = _pages.FirstOrDefault(p => p.Key.Equals(navItemTag));
+            Type pageType = item.Value;
+
+            if (pageType != null && ContentFrame.CurrentSourcePageType != pageType)
+            {
+                ContentFrame.Navigate(pageType, null, info);
+            }
+        }
+
+        private void NavView_BackRequested(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewBackRequestedEventArgs args)
+        {
+
+        }
+
+        private static readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
     }
 }

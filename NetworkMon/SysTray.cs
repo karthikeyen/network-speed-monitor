@@ -27,6 +27,24 @@ namespace NetworkMon
             btRestart.Text = "Restart";
             m_notifyIcon.ContextMenuStrip.Items.Add(btRestart);
 
+            ToolStripButton btPause = new ToolStripButton();
+            btPause.Click += Bt_Click;
+            btPause.Name = "Pause";
+            btPause.Text = "Pause";
+            m_notifyIcon.ContextMenuStrip.Items.Add(btPause);
+
+            ToolStripButton btResume = new ToolStripButton();
+            btResume.Click += BtRestart_Click;
+            btResume.Name = "Resume";
+            btResume.Text = "Resume";
+            m_notifyIcon.ContextMenuStrip.Items.Add(btResume);
+
+            ToolStripButton btExit = new ToolStripButton();
+            btExit.Click += BtRestart_Click;
+            btExit.Name = "Exit";
+            btExit.Text = "Exit";
+            m_notifyIcon.ContextMenuStrip.Items.Add(btExit);
+
             DownloadIcon = GetImageByName("NetworkMon.Assets.download.ico");
             NeutralIcon = GetImageByName("NetworkMon.Assets.hyphen.ico");
         }
