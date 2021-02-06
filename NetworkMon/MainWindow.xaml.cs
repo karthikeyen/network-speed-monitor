@@ -1,4 +1,5 @@
-﻿using NetworkMon.UI;
+﻿using NetworkMon.Helpers;
+using NetworkMon.UI;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -62,6 +63,8 @@ namespace NetworkMon
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             eventLog.WriteEntry("Process started", EventLogEntryType.Information);
+
+            StartupHelper.SetRunAtStartupEnabled(true);
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)

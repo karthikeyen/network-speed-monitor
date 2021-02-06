@@ -1,5 +1,6 @@
 ﻿using ModernWpf.Controls;
 using ModernWpf.Media.Animation;
+using NetworkMon.Helpers;
 using NetworkMon.Pages;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace NetworkMon
                     BackRequested();
                 }
             };
+
+            
         }
 
         private void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
