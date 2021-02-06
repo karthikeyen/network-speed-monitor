@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetworkMon.UI;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -10,8 +11,8 @@ namespace NetworkMon
 {
     public partial class MainWindow : Window
     {
+        public bool IsRunning = true;
         private Timer _timer = new Timer();
-        private SysTray sysTray = new SysTray();
         private THEME Theme;
         private EventLog eventLog = new EventLog();
         static NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
@@ -36,6 +37,8 @@ namespace NetworkMon
 
             eventLog.Source = "NetMonSource";
             SetColors();
+
+            TrayIconManager.SetupTrayIcon();
         }
 
         private void SetColors()
@@ -59,12 +62,11 @@ namespace NetworkMon
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             eventLog.WriteEntry("Process started", EventLogEntryType.Information);
-            this.sysTray.SetDefaultIcons();
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (this.sysTray.IsRunning)
+            if (this.IsRunning)
             {
                 getConnectionInfo();
             }
@@ -98,17 +100,17 @@ namespace NetworkMon
                     if (speed == 0)
                     {
                         quicktext = $"--";
-                        this.sysTray.ClearTrayIcon();
+                        // this.sysTray.ClearTrayIcon();
                     }
                     else if (speed > 0 && speed < 1024)
                     {
                         quicktext = $"{speed} KB/s";
-                        this.sysTray.ShowTrayDonwloadIcon();
+                        // this.sysTray.ShowTrayDonwloadIcon();
                     }
                     else if (speed > 1024)
                     {
                         quicktext = $"{speed / 1024} MB/s";
-                        this.sysTray.ShowTrayDonwloadIcon();
+                        // this.sysTray.ShowTrayDonwloadIcon();
                     }
 
                     this.Dispatcher.Invoke(() =>
