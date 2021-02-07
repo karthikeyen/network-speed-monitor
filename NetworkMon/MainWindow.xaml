@@ -10,7 +10,7 @@
         Topmost="True"
         ShowInTaskbar="False"
         AllowsTransparency="True"  Background="Transparent"
-        Title="MainWindow" Height="50" Width="170">
+        Title="MainWindow" Height="50" Width="200">
     <Grid>
         <TextBlock x:Name="lbl" 
                    Style="{DynamicResource BaseTextBlockStyle}"

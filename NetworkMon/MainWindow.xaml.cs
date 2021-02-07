@@ -23,7 +23,7 @@ namespace NetworkMon
             this.Loaded += MainWindow_Loaded;
             this.Closed += MainWindow_Closed;
 
-            this.Left = SystemParameters.PrimaryScreenWidth - 200;
+            this.Left = SystemParameters.PrimaryScreenWidth - 250;
             this.Top = SystemParameters.PrimaryScreenHeight - 100;
 
             this._timer.Elapsed += _timer_Elapsed;
@@ -107,10 +107,13 @@ namespace NetworkMon
                 if (adapter == null) return;
 
                 long received = adapter.GetIPv4Statistics().BytesReceived;
+                string log = string.Empty;
+               
                 // eventLog.WriteEntry("received : " + received, EventLogEntryType.Information);
 
-                int speed = Speed(received);
-                Debug.WriteLine(speed);
+                long speed = Speed(received);
+                log = $"received: {received}:speed{speed}";
+                Debug.WriteLine(log);
 
                 prevValue = received;
 
@@ -127,7 +130,7 @@ namespace NetworkMon
                 }
                 else if (speed > 1024)
                 {
-                    quicktext = $"{speed / 1024} MB/s";
+                    quicktext = $"{(speed / 1024f).ToString("#.##")} MB/s";
                     // this.sysTray.ShowTrayDonwloadIcon();
                 }
 
@@ -146,10 +149,11 @@ namespace NetworkMon
         }
 
         static long prevValue;
-        static int Speed(long received)
+        static long Speed(long received)
         {
             long recievedBytes = received - prevValue;
-            return (int)recievedBytes / 1024;
+            Debug.WriteLine(recievedBytes);
+            return recievedBytes / 1024;
         }
     }
 }
