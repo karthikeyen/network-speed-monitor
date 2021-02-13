@@ -1,14 +1,9 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
-using ModernWpf;
 using ModernWpf.Controls;
 using NetworkMon.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace NetworkMon.UI
 {
@@ -91,29 +86,6 @@ namespace NetworkMon.UI
             var thumb = (Bitmap)bmp.GetThumbnailImage(64, 64, null, IntPtr.Zero);
             thumb.MakeTransparent();
             return Icon.FromHandle(thumb.GetHicon());
-        }
-
-        public static void UpdateTrayIconVisibility(bool isVisible)
-        {
-            TaskbarIcon.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        public static void UpdateTrayIconInternal(ElementTheme currentTheme, bool useColoredTrayIcon)
-        {
-            ThemeManager.SetRequestedTheme(TaskbarIconContextMenu, currentTheme);
-            ThemeManager.SetRequestedTheme(TaskbarIconToolTip, currentTheme);
-
-            Uri iconUri = null;
-            //if (useColoredTrayIcon)
-            //{
-            //    iconUri = PackUriHelper.GetAbsoluteUri(@"Assets\Logo.ico");
-            //}
-            //else
-            //{
-            //    iconUri = PackUriHelper.GetAbsoluteUri(currentTheme == ElementTheme.Light ? @"Assets\Logo_Tray_Black.ico" : @"Assets\Logo_Tray_White.ico");
-            //}
-
-            TaskbarIcon.IconSource = BitmapFrame.Create(iconUri);
         }
     }
 }

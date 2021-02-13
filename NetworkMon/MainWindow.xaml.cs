@@ -13,7 +13,6 @@ namespace NetworkMon
     {
         public bool IsRunning = true;
         private Timer _timer = new Timer();
-        private THEME Theme;
         private EventLog eventLog = new EventLog();
 
         public MainWindow()
@@ -35,22 +34,8 @@ namespace NetworkMon
             }
 
             eventLog.Source = "NetMonSource";
-            SetColors();
 
             TrayIconManager.SetupTrayIcon();
-        }
-
-        private void SetColors()
-        {
-            Theme = ThemeHelper.GetTheme();
-            if (Theme == THEME.DARK)
-            {
-                // this.lbl.Foreground = new System.Windows.Media.SolidColorBrush(Colors.White);
-            }
-            else
-            {
-                // this.lbl.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
-            }
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)

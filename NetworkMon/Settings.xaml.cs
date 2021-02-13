@@ -1,6 +1,5 @@
 ﻿using ModernWpf.Controls;
 using ModernWpf.Media.Animation;
-using NetworkMon.Helpers;
 using NetworkMon.Pages;
 using System;
 using System.Collections.Generic;
@@ -16,16 +15,6 @@ namespace NetworkMon
         {
             InitializeComponent();
 
-            /* var Theme = ThemeHelper.GetTheme();
-            if (Theme == THEME.DARK)
-            {
-                this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B3B3B"));
-            }
-            else
-            {
-                this.Background = new SolidColorBrush(Colors.White);
-            } */
-
             _pages.Add("about", typeof(About));
             _pages.Add("personalization", typeof(PersonalizationPage));
             _pages.Add("general", typeof(GeneralPage));
@@ -40,8 +29,6 @@ namespace NetworkMon
                     BackRequested();
                 }
             };
-
-            
         }
 
         private void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
