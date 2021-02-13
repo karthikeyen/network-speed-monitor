@@ -3,14 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:NetworkMon.Pages"
       xmlns:core="clr-namespace:NetworkMon.Core"
       mc:Ignorable="d" 
       xmlns:controls="clr-namespace:NetworkMon.Controls"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       DataContext="{x:Static core:Handler.Instance}"
       d:DesignHeight="450" d:DesignWidth="800">
-    <!--<TextBlock Grid.Row="3" Style="{DynamicResource BaseTextBlockStyle}">Style</TextBlock>-->
     <StackPanel Margin="20,10">
         <GroupBox Header="Behavior">
             <ui:SimpleStackPanel Spacing="10">
@@ -25,7 +23,7 @@
                         Spacing="10"
                         Visibility="{Binding ElementName=PlacementModeSelector, Path=SelectedIndex,
                             Converter={StaticResource IndexToVisibilityConverter}, ConverterParameter=0}">
-                    <controls:AlignmentPicker />
+                    <controls:AlignmentPicker Alignment="{Binding UIManager.OnScreenFlyoutWindowAlignment}" />
                 </ui:SimpleStackPanel>
             </ui:SimpleStackPanel>
         </GroupBox>

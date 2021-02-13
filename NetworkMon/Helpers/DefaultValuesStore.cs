@@ -1,7 +1,9 @@
 ﻿using ModernWpf;
+using NetworkMon.Types;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace NetworkMon.Helpers
@@ -68,6 +70,17 @@ namespace NetworkMon.Helpers
         public const int MaxVerticalSessionControlsCount = 1;
 
         public const Orientation SessionsPanelOrientation = Orientation.Horizontal;
+
+        public const FlyoutWindowPlacementMode OnScreenFlyoutWindowPlacementMode = FlyoutWindowPlacementMode.Auto;
+
+        public const FlyoutWindowAlignments OnScreenFlyoutWindowAlignment = FlyoutWindowAlignments.Top | FlyoutWindowAlignments.Left;
+
+        public static Thickness OnScreenFlyoutWindowMargin = new Thickness(10);
+
+        public const FlyoutWindowExpandDirection OnScreenFlyoutWindowExpandDirection = FlyoutWindowExpandDirection.Auto;
+
+       // public const StackingDirection OnScreenFlyoutContentStackingDirection = StackingDirection.Ascending;
+
 
         #endregion
     }

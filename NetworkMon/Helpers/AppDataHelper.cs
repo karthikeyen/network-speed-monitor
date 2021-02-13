@@ -1,9 +1,13 @@
 ﻿using ModernWpf;
+using NetworkMon.Controls;
+using NetworkMon.Types;
+using NetworkMon.UI;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Windows.Storage;
 
@@ -267,5 +271,35 @@ namespace NetworkMon.Helpers
         #endregion
 
         #endregion
+
+        public static FlyoutWindowPlacementMode OnScreenFlyoutWindowPlacementMode
+        {
+            get => GetValue(DefaultValuesStore.OnScreenFlyoutWindowPlacementMode);
+            set => SetValue(value);
+        }
+
+        public static FlyoutWindowAlignments OnScreenFlyoutWindowAlignment
+        {
+            get => GetValue(DefaultValuesStore.OnScreenFlyoutWindowAlignment);
+            set => SetValue(value);
+        }
+
+        public static Thickness OnScreenFlyoutWindowMargin
+        {
+            get => GetValue(DefaultValuesStore.OnScreenFlyoutWindowMargin);
+            set => SetValue(value);
+        }
+
+        public static FlyoutWindowExpandDirection OnScreenFlyoutWindowExpandDirection
+        {
+            get => GetValue(DefaultValuesStore.OnScreenFlyoutWindowExpandDirection);
+            set => SetValue(value);
+        }
+
+        //public static StackingDirection OnScreenFlyoutContentStackingDirection
+        //{
+        //    get => GetValue(DefaultValuesStore.OnScreenFlyoutContentStackingDirection);
+        //    set => SetValue(value);
+        //}
     }
 }

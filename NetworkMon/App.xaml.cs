@@ -22,6 +22,7 @@ namespace NetworkMon
         private void App_Startup(object sender, StartupEventArgs e)
         {
             Handler.Instance = new Handler();
+            Handler.Instance.Init();
         }
     }
 }

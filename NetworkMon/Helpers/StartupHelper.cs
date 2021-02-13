@@ -1,7 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel;
@@ -56,6 +54,17 @@ namespace NetworkMon.Helpers
             else
             {
                 registryKey.DeleteValue("Network Status Monitor");
+            }
+        }
+
+        public static string GetRegisterInStartup
+        {
+            get
+            {
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
+                    ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                var val = registryKey.GetValue("Network Status Monitor");
+                return val != null ? val.ToString() : string.Empty;
             }
         }
     }
