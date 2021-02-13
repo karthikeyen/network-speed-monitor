@@ -108,7 +108,7 @@ namespace NetworkMon
 
                 long received = adapter.GetIPv4Statistics().BytesReceived;
                 string log = string.Empty;
-               
+
                 // eventLog.WriteEntry("received : " + received, EventLogEntryType.Information);
 
                 long speed = Speed(received);
@@ -120,25 +120,22 @@ namespace NetworkMon
                 string quicktext = "";
                 if (speed == 0)
                 {
-                    quicktext = $"--";
-                    // this.sysTray.ClearTrayIcon();
+                    quicktext = $"-";
                 }
                 else if (speed > 0 && speed < 1024)
                 {
                     quicktext = $"{speed} KB/s";
-                    // this.sysTray.ShowTrayDonwloadIcon();
                 }
                 else if (speed > 1024)
                 {
                     quicktext = $"{(speed / 1024f).ToString("#.##")} MB/s";
-                    // this.sysTray.ShowTrayDonwloadIcon();
                 }
 
                 // eventLog.WriteEntry("quicktext : " + quicktext, EventLogEntryType.Information);
 
                 this.Dispatcher.Invoke(() =>
                 {
-                        this.lbl.Text = speed == 0 ? "--" : quicktext;
+                    this.lbl.Text = speed == 0 ? "" : quicktext;
                 });
             }
             catch (Exception ex)
@@ -152,7 +149,7 @@ namespace NetworkMon
         static long Speed(long received)
         {
             long recievedBytes = received - prevValue;
-            Debug.WriteLine(recievedBytes);
+            // Debug.WriteLine(recievedBytes);
             return recievedBytes / 1024;
         }
     }

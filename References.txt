@@ -3,3 +3,6 @@
 // https://www.codeproject.com/Articles/36468/WPF-NotifyIcon-2
 
 // https://github.com/microsoft/AppModelSamples/blob/master/Samples/TestStartup/TestStartup/MainPage.xaml.cs
+
+// App Icons
+// https://docs.microsoft.com/en-us/windows/uwp/design/style/app-icons-and-logos

@@ -38,7 +38,7 @@ namespace NetworkMon.Helpers
                     startupTask.Disable();
                 }
             }
-            catch (Exception x)
+            catch (Exception)
             {
                 RegisterInStartup(true);
             }
