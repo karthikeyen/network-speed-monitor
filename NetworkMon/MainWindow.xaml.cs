@@ -3,6 +3,7 @@ using NetworkMon.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Timers;
 using System.Windows;
@@ -14,6 +15,10 @@ namespace NetworkMon
         public bool IsRunning = true;
         private Timer _timer = new Timer();
         private EventLog eventLog = new EventLog();
+
+        private int count = 3;
+        private List<double> buffer = new List<double>();
+        private double _speed;
 
         public MainWindow()
         {
@@ -94,34 +99,39 @@ namespace NetworkMon
                 long received = adapter.GetIPv4Statistics().BytesReceived;
                 string log = string.Empty;
 
-                // eventLog.WriteEntry("received : " + received, EventLogEntryType.Information);
-
-                long speed = Speed(received);
-                log = $"received: {received}:speed{speed}";
-                Debug.WriteLine(log);
-
+                double speed = Speed(received);
                 prevValue = received;
 
-                string quicktext = "";
-                if (speed == 0)
+                if (buffer.Count < count)
                 {
-                    quicktext = $"-";
-                }
-                else if (speed > 0 && speed < 1024)
-                {
-                    quicktext = $"{speed} KB/s";
-                }
-                else if (speed > 1024)
-                {
-                    quicktext = $"{(speed / 1024f).ToString("#.##")} MB/s";
+                    buffer.Add(speed);
                 }
 
-                // eventLog.WriteEntry("quicktext : " + quicktext, EventLogEntryType.Information);
-
-                this.Dispatcher.Invoke(() =>
+                if (buffer.Count == count)
                 {
-                    this.lbl.Text = speed == 0 ? "" : quicktext;
-                });
+                    _speed = buffer.Average(item => item);
+
+                    string quicktext = String.Empty;
+                    if (speed == 0)
+                    {
+                        quicktext = $"-";
+                    }
+                    else if (speed > 1 && speed < 1024)
+                    {
+                        quicktext = $"{speed.ToString("#")} KB/s";
+                    }
+                    else if (speed > 1024)
+                    {
+                        quicktext = $"{(speed / 100f).ToString("#.#")} MB/s";
+                    }
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.lbl.Text = speed == 0 ? String.Empty : quicktext;
+                    });
+
+                    buffer.Clear();
+                }
             }
             catch (Exception ex)
             {
@@ -131,11 +141,14 @@ namespace NetworkMon
         }
 
         static long prevValue;
-        static long Speed(long received)
+        static double Speed(long received)
         {
             long recievedBytes = received - prevValue;
-            // Debug.WriteLine(recievedBytes);
-            return recievedBytes / 1024;
+            if (recievedBytes > 0)
+            {
+                Debug.WriteLine($"{recievedBytes}={(recievedBytes / 1024f).ToString("#.##")}");
+            }
+            return (recievedBytes / 1024f);
         }
     }
 }
