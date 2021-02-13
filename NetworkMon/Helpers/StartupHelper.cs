@@ -44,7 +44,7 @@ namespace NetworkMon.Helpers
             }
         }
 
-        private static void RegisterInStartup(bool isChecked)
+        public static void RegisterInStartup(bool isChecked)
         {
             RegistryKey registryKey = Registry.CurrentUser.OpenSubKey
                     ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);

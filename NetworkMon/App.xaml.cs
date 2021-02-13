@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetworkMon.Core;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,14 @@ namespace NetworkMon
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            this.Startup += App_Startup;
+        }
+
+        private void App_Startup(object sender, StartupEventArgs e)
+        {
+            Handler.Instance = new Handler();
+        }
     }
 }
