@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using NetworkMon.Core;
 using NetworkMon.Helpers;
 using NetworkMon.UI;
 using System;
