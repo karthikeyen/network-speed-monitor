@@ -13,11 +13,11 @@ namespace NetworkMon
     public partial class MainWindow : Window
     {
         public bool IsRunning = true;
-        private EventLog eventLog = new EventLog();
+        private readonly EventLog eventLog = new EventLog();
 
         private NetworkInterface myNetworkAdapter;
-        private NetworkSpeed myDownloadSpeed;
-        private NetworkSpeed myUploadSpeed;
+        private readonly NetworkSpeed myDownloadSpeed;
+        private readonly NetworkSpeed myUploadSpeed;
 
         public MainWindow()
         {
