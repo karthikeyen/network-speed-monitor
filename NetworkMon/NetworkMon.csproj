@@ -38,6 +38,9 @@
     <EmbeddedResource Include="Assets\tray_icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\NetworkMon.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
