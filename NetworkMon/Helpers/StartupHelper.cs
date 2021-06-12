@@ -30,14 +30,16 @@ namespace NetworkMon.Helpers
                 if (value)
                 {
                     await startupTask.RequestEnableAsync();
+                    // MessageBox.Show("start up enabled");
                 }
                 else
                 {
                     startupTask.Disable();
                 }
             }
-            catch (Exception)
+            catch (Exception x)
             {
+                // MessageBox.Show(x.ToString());
                 RegisterInStartup(true);
             }
         }

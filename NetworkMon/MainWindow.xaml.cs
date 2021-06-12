@@ -69,7 +69,8 @@ namespace NetworkMon
 
             if (Interfaces.Count > 0)
             {
-                return Interfaces[0];
+                var interface_ = Interfaces.Find(x => !x.Description.Contains("Hyper-V"));
+                return interface_;
             }
             else
             {

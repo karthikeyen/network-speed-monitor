@@ -6,3 +6,7 @@
 
 // App Icons
 // https://docs.microsoft.com/en-us/windows/uwp/design/style/app-icons-and-logos
+
+// Start - up
+// https://stackoverflow.com/questions/35940683/uwp-app-start-automatically-at-startup
+// https://channel9.msdn.com/Events/Build/2017/B8012
