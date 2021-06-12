@@ -23,11 +23,11 @@ namespace NetworkMon
         {
             InitializeComponent();
 
-            this.Loaded += MainWindow_Loaded;
-            this.Closed += MainWindow_Closed;
+            Loaded += MainWindow_Loaded;
+            Closed += MainWindow_Closed;
 
-            this.Left = SystemParameters.PrimaryScreenWidth - 250;
-            this.Top = SystemParameters.PrimaryScreenHeight - 100;
+            Left = SystemParameters.PrimaryScreenWidth - 250;
+            Top = SystemParameters.PrimaryScreenHeight - 100;
 
             if (!EventLog.SourceExists("NetMonSource"))
             {
@@ -58,7 +58,7 @@ namespace NetworkMon
 
         void startTick()
         {
-            while (this.IsRunning)
+            while (IsRunning)
             {
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
@@ -102,13 +102,13 @@ namespace NetworkMon
                 long received = myNetworkAdapter.GetIPv4Statistics().BytesReceived;
                 long sent = myNetworkAdapter.GetIPv4Statistics().BytesSent;
 
-                var receivedSpeed = myDownloadSpeed.GetSpeed(received);
-                var sentSpeed = myUploadSpeed.GetSpeed(sent);
+                string receivedSpeed = myDownloadSpeed.GetSpeed(received);
+                string sentSpeed = myUploadSpeed.GetSpeed(sent);
 
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
-                    this.lbl.Text = receivedSpeed;
-                    this.lblUp.Text = sentSpeed;
+                    lbl.Text = receivedSpeed;
+                    lblUp.Text = sentSpeed;
                 });
             }
             catch (Exception ex)
