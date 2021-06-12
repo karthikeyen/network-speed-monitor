@@ -44,7 +44,7 @@ namespace NetworkMon
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            this.IsRunning = false;
+            IsRunning = false;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -53,25 +53,25 @@ namespace NetworkMon
 
             StartupHelper.SetRunAtStartupEnabled(true);
 
-            new Thread(startTick).Start();
+            new Thread(StartTick).Start();
         }
 
-        void startTick()
+        private void StartTick()
         {
             while (IsRunning)
             {
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    getConnectionInfo();
+                    GetConnectionInfo();
                 }
             }
         }
 
-        NetworkInterface GetConnectedNetworkInterface()
+        private NetworkInterface GetConnectedNetworkInterface()
         {
             List<NetworkInterface> Interfaces = new List<NetworkInterface>();
-            var all = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (var ni in all)
+            NetworkInterface[] all = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (NetworkInterface ni in all)
             {
                 if (ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Tunnel && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
                 {
@@ -81,7 +81,7 @@ namespace NetworkMon
 
             if (Interfaces.Count > 0)
             {
-                var interface_ = Interfaces.Find(x => !x.Description.Contains("Hyper-V"));
+                NetworkInterface interface_ = Interfaces.Find(x => !x.Description.Contains("Hyper-V"));
                 return interface_;
             }
             else
@@ -90,7 +90,7 @@ namespace NetworkMon
             }
         }
 
-        private void getConnectionInfo()
+        private void GetConnectionInfo()
         {
             try
             {
