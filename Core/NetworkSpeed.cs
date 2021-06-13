@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
 namespace NetworkMon.Core
 {
@@ -28,51 +25,70 @@ namespace NetworkMon.Core
             return recievedBytes;
         }
 
-        string ConvertToUnit(double traffic, DisplayUnit displayUnit)
+        private double ConvertToUnit(double traffic, DisplayUnit displayUnit)
         {
-            string convertedText = "";
+            double convertedText = 0;
 
             switch (displayUnit)
             {
                 case DisplayUnit.KiloBit:
-                    convertedText = (traffic / 125).ToString("#.#");
+                    convertedText = traffic / 125;
 
                     break;
                 case DisplayUnit.KiloByte:
-                    convertedText = (traffic / 1000).ToString("#.#");
+                    convertedText = traffic / 1000;
 
                     break;
                 case DisplayUnit.MegeBit:
-                    convertedText = (traffic / 125000).ToString("#.#");
+                    convertedText = traffic / 125000;
 
                     break;
                 case DisplayUnit.MegaByte:
-                    convertedText = (traffic / 1000000).ToString("#.#");
+                    convertedText = traffic / 1000000;
 
+                    break;
+                default:
                     break;
             }
 
             return convertedText;
         }
 
-        public List<string> GetSpeed(long received, int timeDelayInSeconds)
+        public string GetSpeed(long received, int timeDelayInSeconds)
         {
             double realtimeTraffic = CurrentTraffic(received);
+
+            if (prevValue == 0)
+            {
+                return null;
+            }
+
             Debug.WriteLine($"R:{realtimeTraffic} Bytes");
 
-            var kbit = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.KiloBit)} Kb/s";
-            var kbyte = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.KiloByte)} KB/s";
-            var mbit = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.MegeBit)} Mb/s";
-            var mbyte = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.MegaByte)} MB/s";
+            double kbit = ConvertToUnit(realtimeTraffic, DisplayUnit.KiloBit);
+            double kbyte = ConvertToUnit(realtimeTraffic, DisplayUnit.KiloByte);
+            double mbit = ConvertToUnit(realtimeTraffic, DisplayUnit.MegeBit);
+            double mbyte = ConvertToUnit(realtimeTraffic, DisplayUnit.MegaByte);
 
             Debug.WriteLine(kbit);
             Debug.WriteLine(kbyte);
             Debug.WriteLine(mbit);
             Debug.WriteLine(mbyte);
 
-            Debug.WriteLine("-----------------------------------");
+            if (mbyte > 1)
+            {
+                Debug.WriteLine($"F:{mbyte:#.#} MB/s");
+                return $"{mbyte:#.#} MB/s";
+            }
+            else
+            {
+                Debug.WriteLine($"F:{kbyte:#.#} KB/s");
+                return $"{kbyte:#.#} KB/s";
+            }
 
-            string quicktext = String.Empty;
+            // Debug.WriteLine("-----------------------------------");
+
+            // string quicktext = String.Empty;
 
             //Debug.WriteLine(_speed);
 
@@ -93,7 +109,7 @@ namespace NetworkMon.Core
             //    }
             //}
 
-            return new List<string> { kbit, kbyte, mbit, mbyte };
+            // return new List<string> { kbit.ToString("#.#"), kbyte.ToString("#.#"), mbit.ToString("#.#"), mbyte.ToString("#.#") };
 
             // return quicktext;
         }

@@ -28,7 +28,7 @@ namespace NetworkMon
             Loaded += MainWindow_Loaded;
             Closed += MainWindow_Closed;
 
-            Left = SystemParameters.PrimaryScreenWidth - 350;
+            Left = SystemParameters.PrimaryScreenWidth - 500;
             Top = SystemParameters.PrimaryScreenHeight - 200;
 
             if (!EventLog.SourceExists("NetMonSource"))
@@ -107,15 +107,25 @@ namespace NetworkMon
                 // Debug.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} :T: {received} Bytes");
                 long sent = myNetworkAdapter.GetIPv4Statistics().BytesSent;
 
-                List<string> receivedSpeed = myDownloadSpeed.GetSpeed(received, myTimeDelayInSeconds);
-                // string sentSpeed = myUploadSpeed.GetSpeed(sent, myTimeDelayInSeconds);
+                string receivedSpeed = myDownloadSpeed.GetSpeed(received, myTimeDelayInSeconds);
+                string sentSpeed = myUploadSpeed.GetSpeed(sent, myTimeDelayInSeconds);
+
+                if (receivedSpeed == null)
+                {
+                    return;
+                }
 
                 Dispatcher.Invoke(() =>
                 {
-                    kbit.Text = receivedSpeed[0];
-                    kbyte.Text = receivedSpeed[1];
-                    mbit.Text = receivedSpeed[2];
-                    mbyte.Text = receivedSpeed[3];
+                    kbit.Text = receivedSpeed;
+                    //kbyte.Text = receivedSpeed[1];
+                    //mbit.Text = receivedSpeed[2];
+                    //mbyte.Text = receivedSpeed[3];
+
+                    kbitup.Text = sentSpeed;
+                    //kbyteup.Text = sentSpeed[1];
+                    //mbitup.Text = sentSpeed[2];
+                    //mbyteup.Text = sentSpeed[3];
                 });
             }
             catch (Exception ex)
