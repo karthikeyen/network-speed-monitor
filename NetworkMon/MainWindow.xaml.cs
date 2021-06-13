@@ -118,14 +118,7 @@ namespace NetworkMon
                 Dispatcher.Invoke(() =>
                 {
                     kbit.Text = receivedSpeed;
-                    //kbyte.Text = receivedSpeed[1];
-                    //mbit.Text = receivedSpeed[2];
-                    //mbyte.Text = receivedSpeed[3];
-
                     kbitup.Text = sentSpeed;
-                    //kbyteup.Text = sentSpeed[1];
-                    //mbitup.Text = sentSpeed[2];
-                    //mbyteup.Text = sentSpeed[3];
                 });
             }
             catch (Exception ex)
