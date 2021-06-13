@@ -19,6 +19,8 @@ namespace NetworkMon
         private readonly NetworkSpeed myDownloadSpeed;
         private readonly NetworkSpeed myUploadSpeed;
 
+        private readonly int myTimeDelayInSeconds = 1;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,8 +28,8 @@ namespace NetworkMon
             Loaded += MainWindow_Loaded;
             Closed += MainWindow_Closed;
 
-            Left = SystemParameters.PrimaryScreenWidth - 250;
-            Top = SystemParameters.PrimaryScreenHeight - 100;
+            Left = SystemParameters.PrimaryScreenWidth - 350;
+            Top = SystemParameters.PrimaryScreenHeight - 200;
 
             if (!EventLog.SourceExists("NetMonSource"))
             {
@@ -64,6 +66,8 @@ namespace NetworkMon
                 {
                     GetConnectionInfo();
                 }
+
+                Thread.Sleep(myTimeDelayInSeconds * 1000);
             }
         }
 
@@ -100,15 +104,18 @@ namespace NetworkMon
                 }
 
                 long received = myNetworkAdapter.GetIPv4Statistics().BytesReceived;
+                Debug.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} :T: {received} Bytes");
                 long sent = myNetworkAdapter.GetIPv4Statistics().BytesSent;
 
-                string receivedSpeed = myDownloadSpeed.GetSpeed(received);
-                string sentSpeed = myUploadSpeed.GetSpeed(sent);
+                
+                string receivedSpeed = myDownloadSpeed.GetSpeed(received, myTimeDelayInSeconds);
+                
+                // string sentSpeed = myUploadSpeed.GetSpeed(sent);
 
                 Dispatcher.Invoke(() =>
                 {
                     lbl.Text = receivedSpeed;
-                    lblUp.Text = sentSpeed;
+                    // lblUp.Text = sentSpeed;
                 });
             }
             catch (Exception ex)

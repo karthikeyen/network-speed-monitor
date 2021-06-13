@@ -10,19 +10,19 @@
         Topmost="True"
         ShowInTaskbar="False"
         AllowsTransparency="True"  Background="Transparent"
-        Title="MainWindow" Height="65" Width="200">
+        Title="MainWindow" Height="65" Width="280">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="lbl" Grid.Row="1"
                    Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="30px" TextAlignment="Center" Foreground="White" Opacity="0.5">0 KB/s</TextBlock>
+                   FontSize="20px" TextAlignment="Center" Foreground="White" Opacity="0.5">2 MB/s (500 KB/s)</TextBlock>
         <TextBlock x:Name="lblUp" 
                    Grid.Row="0"
                    Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">0 KB/s</TextBlock>
+                   FontSize="20px" TextAlignment="Center" Foreground="White" Opacity="0.5">0 KB/s</TextBlock>
 
     </Grid>
 </Window>
