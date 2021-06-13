@@ -13,57 +13,26 @@
         Background="Transparent"
         Title="MainWindow" 
         Height="50" 
-        Width="80">
+        Width="120">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>-->
-        <TextBlock x:Name="kbit" Grid.Column="0"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Row="1" Source="/up.svg"></Image>
+        <TextBlock x:Name="kbit" Grid.Column="1"
                    Style="{DynamicResource BaseTextBlockStyle}"
                    FontSize="18px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
         </TextBlock>
-        <!--<TextBlock x:Name="kbyte" 
-                   Grid.Column="1"
-                   Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
-        </TextBlock>
-        <TextBlock x:Name="mbit" Grid.Column="2"
-                   Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
-        </TextBlock>
-        <TextBlock x:Name="mbyte" 
-                   Grid.Column="3"
-                   Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
-        </TextBlock>-->
-        <TextBlock x:Name="kbitup" Grid.Column="0"
+        <Image Grid.Row="0" Source="/down.svg"></Image>
+        <TextBlock x:Name="kbitup" Grid.Column="1"
                    Grid.Row="1"
                    Style="{DynamicResource BaseTextBlockStyle}"
                    FontSize="18px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
         </TextBlock>
-        <!--<TextBlock x:Name="kbyteup" 
-                   Grid.Column="1"
-                    Grid.Row="1"
-                   Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
-        </TextBlock>
-        <TextBlock x:Name="mbitup" Grid.Column="2"
-                    Grid.Row="1"
-                   Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
-        </TextBlock>
-        <TextBlock x:Name="mbyteup" 
-                   Grid.Column="3"
-                    Grid.Row="1"
-                   Style="{DynamicResource BaseTextBlockStyle}"
-                   FontSize="15px" TextAlignment="Center" Foreground="White" Opacity="0.5">500 KB/s
-        </TextBlock>-->
     </Grid>
 </Window>

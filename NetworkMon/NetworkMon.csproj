@@ -15,6 +15,9 @@
     <None Remove="Assets\hyphen.ico" />
     <None Remove="Assets\Images\download.png" />
     <None Remove="Assets\tray_icon.ico" />
+    <None Remove="down-arrow.png" />
+    <None Remove="up-arrow.png" />
+    <None Remove="up.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\download.ico">
@@ -35,6 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\download.png" />
+    <Resource Include="down-arrow.png" />
+    <Resource Include="up-arrow.png" />
+    <Resource Include="up.svg" />
     <EmbeddedResource Include="Assets\tray_icon.ico" />
   </ItemGroup>
   <ItemGroup>

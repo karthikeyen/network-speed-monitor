@@ -28,8 +28,8 @@ namespace NetworkMon
             Loaded += MainWindow_Loaded;
             Closed += MainWindow_Closed;
 
-            Left = SystemParameters.PrimaryScreenWidth - 500;
-            Top = SystemParameters.PrimaryScreenHeight - 200;
+            Left = SystemParameters.PrimaryScreenWidth - 200;
+            Top = SystemParameters.PrimaryScreenHeight - 100;
 
             if (!EventLog.SourceExists("NetMonSource"))
             {
