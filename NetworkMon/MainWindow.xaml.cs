@@ -104,18 +104,18 @@ namespace NetworkMon
                 }
 
                 long received = myNetworkAdapter.GetIPv4Statistics().BytesReceived;
-                Debug.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} :T: {received} Bytes");
+                // Debug.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} :T: {received} Bytes");
                 long sent = myNetworkAdapter.GetIPv4Statistics().BytesSent;
 
-                
-                string receivedSpeed = myDownloadSpeed.GetSpeed(received, myTimeDelayInSeconds);
-                
-                // string sentSpeed = myUploadSpeed.GetSpeed(sent);
+                List<string> receivedSpeed = myDownloadSpeed.GetSpeed(received, myTimeDelayInSeconds);
+                // string sentSpeed = myUploadSpeed.GetSpeed(sent, myTimeDelayInSeconds);
 
                 Dispatcher.Invoke(() =>
                 {
-                    lbl.Text = receivedSpeed;
-                    // lblUp.Text = sentSpeed;
+                    kbit.Text = receivedSpeed[0];
+                    kbyte.Text = receivedSpeed[1];
+                    mbit.Text = receivedSpeed[2];
+                    mbyte.Text = receivedSpeed[3];
                 });
             }
             catch (Exception ex)

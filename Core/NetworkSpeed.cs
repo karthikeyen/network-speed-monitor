@@ -5,81 +5,97 @@ using System.Linq;
 
 namespace NetworkMon.Core
 {
+    public enum DisplayUnit
+    {
+        KiloBit, KiloByte, MegeBit, MegaByte
+    }
+
     public class NetworkSpeed
     {
         private long prevValue;
-        private int count = 8;
-        private double old;
-        private List<double> buffer = new List<double>();
 
-        public double Speed(long received)
+        public double CurrentTraffic(long received)
         {
             long recievedBytes = received - prevValue;
-            Debug.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} :R: {recievedBytes} Bytes");
+            // Debug.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} :R: {recievedBytes} Bytes");
             if (recievedBytes > 0)
             {
                 // Debug.WriteLine($"{recievedBytes}={(recievedBytes / 1024f).ToString("#.##")}");
             }
 
             prevValue = received;
-            return recievedBytes / 125000f;
+            // return recievedBytes / 125000f;
+            return recievedBytes;
         }
 
-        public string GetSpeed(long received, int timeDelayInSeconds)
+        string ConvertToUnit(double traffic, DisplayUnit displayUnit)
         {
-            double _speed = Speed(received);
+            string convertedText = "";
 
-            /* if (buffer.Count < count)
+            switch (displayUnit)
             {
-                buffer.Add(_speed);
+                case DisplayUnit.KiloBit:
+                    convertedText = (traffic / 125).ToString("#.#");
+
+                    break;
+                case DisplayUnit.KiloByte:
+                    convertedText = (traffic / 1000).ToString("#.#");
+
+                    break;
+                case DisplayUnit.MegeBit:
+                    convertedText = (traffic / 125000).ToString("#.#");
+
+                    break;
+                case DisplayUnit.MegaByte:
+                    convertedText = (traffic / 1000000).ToString("#.#");
+
+                    break;
             }
 
-            if (buffer.Count == count)
-            {
-                _speed = buffer.Average(item => item);
+            return convertedText;
+        }
 
-                buffer.Clear();
+        public List<string> GetSpeed(long received, int timeDelayInSeconds)
+        {
+            double realtimeTraffic = CurrentTraffic(received);
+            Debug.WriteLine($"R:{realtimeTraffic} Bytes");
 
-                old = _speed;
-            } 
-            else
-            {
-                _speed = old;
-            } */
+            var kbit = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.KiloBit)} Kb/s";
+            var kbyte = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.KiloByte)} KB/s";
+            var mbit = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.MegeBit)} Mb/s";
+            var mbyte = $"{ConvertToUnit(realtimeTraffic, DisplayUnit.MegaByte)} MB/s";
 
-            // _speed = _speed / (timeDelayInSeconds);
+            Debug.WriteLine(kbit);
+            Debug.WriteLine(kbyte);
+            Debug.WriteLine(mbit);
+            Debug.WriteLine(mbyte);
+
+            Debug.WriteLine("-----------------------------------");
 
             string quicktext = String.Empty;
 
-            Debug.WriteLine(_speed);
+            //Debug.WriteLine(_speed);
 
-            if (_speed == 0)
-            {
-                quicktext = $"";
-            }
-            else if(_speed > 1)
-            {
-                quicktext = $"{_speed.ToString("#")} Mb/s ({(_speed * 125).ToString("#.#")} KB/s)";
-            }
-
-            if (_speed < 1)
-            {
-                if ((_speed * 1000) > 1)
-                {
-                    quicktext = $"{(_speed * 1000).ToString("#.#")} Kbps";
-                }
-            }
-
-            //else if (_speed > 1 && _speed < 1024)
+            //if (_speed == 0)
             //{
-            //    quicktext = $"{_speed.ToString("#")} KB/s";
+            //    quicktext = $"";
             //}
-            //else if (_speed > 1024)
+            //else if (_speed > 1)
             //{
-            //    quicktext = $"{(_speed / 100f).ToString("#.#")} MB/s";
+            //    quicktext = $"{_speed.ToString("#")} Mb/s ({(_speed * 125).ToString("#.#")} KB/s)";
             //}
 
-            return quicktext;
+            //if (_speed < 1)
+            //{
+            //    if ((_speed * 1000) > 1)
+            //    {
+            //        quicktext = $"{(_speed * 1000).ToString("#.#")} Kbps";
+            //    }
+            //}
+
+            return new List<string> { kbit, kbyte, mbit, mbyte };
+
+            // return quicktext;
         }
     }
 }
